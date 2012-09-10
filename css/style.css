@@ -1,0 +1,48 @@
+html, body {
+	background: url('img/bg.png');
+}
+
+#container {
+	width: 100% !important;
+}
+
+#wrapper {
+	width: 960px !important;
+	padding: 20px;
+	margin: 20px auto;
+	background: rgba(255,255,255,.4);
+	border-radius: 20px;
+	box-shadow: 0 0 20px rgba(0,0,0,.1)
+}
+
+#content {
+	margin: 50px 0;
+}
+
+footer {
+	width: 960px;
+	margin: -10px auto;
+	text-align: center;
+}
+
+.seminarie_name_h2 {
+	margin-top: 50px;
+}
+
+label {
+	margin-top: 10px;
+}
+
+.margin-fix {
+	margin:0 5px;
+}
+
+.textarea-fix {
+	min-width: 290px;
+	max-width: 290px;
+	min-height: 150px;
+}
+
+.contact-info {
+	margin-top: 10px;
+}
