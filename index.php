@@ -50,13 +50,7 @@
                             <p class="span7">Detta är min kursportal för kursen Webbutveckling med PHP som jag läser genom Linnéuniversitet i Kalmar</p>
                         </div>
                         <div class="span4">
-                            <h2>Senaste uppgifter</h2>
-                            <div class="alert alert-info">
-                                <button type="button" class="close" data-dismiss="alert">×</button>
-                                <h3>Laboration 1</h3>
-                                <p>Labben är nu i sitt slutskede tror den är klar, bara checklistan att kolla igenom.</p>
-                                <a href="/uppgift/labb1/" class="btn btn-success">Gå till Labb 1</a>
-                            </div>
+                        	<?php include('/latest.php') ?>
                         </div>
                     </div>
                 </div>

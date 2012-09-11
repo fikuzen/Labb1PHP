@@ -1,25 +1,44 @@
 <?php
-  include('sendmail.php');
-  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-  
-    //Glöm inte att ändra de statiska sakerna till de du vill ha dem som.
-    
-    $email = array(); 
-    $email['receiver_name'] = "Christoffer Rydberg";
-    $email['receiver_email'] = "mongoj_92@hotmail.com";
-    $email['sender_name'] = isset($_POST['sender_name']) ? $_POST['sender_name'] : 'Statiskt avsändarnamn';
-    $email['sender_email'] = isset($_POST['sender_email']) ? $_POST['sender_email'] : 'Statiskt avsändaradress';
-    $email['subject'] = isset($_POST['subject']) ? $_POST['subject'] : 'Via Hemsidan';
-    $email['message'] = isset($_POST['message']) ? $_POST['message'] : 'Statisk body';
-    
-    //här kan du manipulera eventuell annan data. Ovan är bara ett förslag på hur du kan göra.
-    //dock så är det viktigt att arrayen är associativ med de namnen som finns där uppe.
-    
-    $sendmail = new SendMail($email);
-    
-  }
-  
-  else {?>
+	//länka in filer med funktioner som används
+	require_once "math.php";
+	require_once "array.php";
+	require_once "login/LoginHandler.php";
+	
+	//Här börjar vår php kod.
+	$body = "<h1>Enhetstester</h1>";		
+	
+	//Test av math.php
+	$body .= "<h2>Matematiktest</h2>";
+	
+	$math = new MathLib();
+	if ($math->Test() == true) {
+		$body .= "<p>Matematiktest ok</p>";
+	} else {
+		$body .= "<p>Matematiktest fungerar ej</p>";
+	}
+
+	//Test av array.php		
+	//Ni skall själva implementera funktionerna i array.php
+	$body .= "<h2>Array-test</h2>";
+	
+	$aHandler = new ArrayHandler();
+	if ($aHandler->Test() == true) {
+		$body .= "<p>Arraytest ok</p>";
+	} else {
+		$body .= "<p>Arraytest fungerar ej</p>";
+	}
+	
+	//Test av login.php
+	//Implementera själv både funktioner och test
+	$body .= "<h2>Login-test</h2>";
+	
+	$login = new LoginHandler();
+	if (count($login->Test()) == 0) {
+		$body .= "<p>Logintest ok</p>";
+	} else {
+		$body .= "<p>Logintest fungerar ej</p>";
+	}
+?>
 
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -29,7 +48,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Kontaktuppgifter</title>
+        <title>Laboration 1</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
 
@@ -61,36 +80,15 @@
                     <a href="/pages/uppgift/" class="span1 btn btn-primary">Uppgifter</a>
                     <a href="/pages/seminarie/" class="span2 btn btn-primary">Seminariegrupp</a>
                     <a href="/pages/about/" class="span1 btn btn-primary">Om mig</a>
-                    <a href="/pages/contact/" class="span1 active btn btn-primary">Kontakt</a>
+                    <a href="/pages/contact/" class="span1 btn btn-primary">Kontakt</a>
                 <div class="clearfix"></div>
                 </nav>
                 <div id="content">
                     <div class="row">
-                        <div class="span8">
-                        	<h2>Christoffer Rydberg</h2>
-                            <hr />
-                            <div class="span3 contact-info">
-	                            <p><span class="icon-envelope margin-fix"></span>cr222cs@student.lnu.se</p>
-	                        	<p><span class="icon-user margin-fix"></span>Skype: aldiiz</p>
-	                            <p><span class="icon-volume-down margin-fix"></span>073-5075497</p>
-                            </div>
-                            <div class="span4">
-                            	<form class="emailform" action="<?php echo $_SERVER['PHP_SELF'];?>" method="post">
-                            		<label for="sender_name">Namn</label>
-                            		<input class="span4" type="text" id="sender_name" name="sender_name" placeholder="Namn..."></input>
-                            		<label for="sender_email">Email</label>
-                            		<input class="span4" type="text" id="sender_email" name="sender_email" placeholder="Email..."></input>
-                            		<label for="subject">Ämne</label>
-                            		<input class="span4" type="text" id="subject" name="subject" placeholder="Ämne..."></input>
-                            		<label for="message">Meddelande</label>
-                            		<textarea id="message" name="message" class="textarea-fix">Meddelande...</textarea>
-                            		<input type="submit" value="Skicka" class="btn btn-small btn-info"></input>
-                            	</form>
-                            </div>
-                        </div>
-                        <div class="span4">
-                            <?php include('../../latest.php') ?>
-                        </div>
+                    	<div class="span12">
+                    		<?php echo $body; ?>
+                    		<a class="btn btn-small btn-success" href="login/">Login sidan</a>
+                    	</div>
                     </div>
                 </div>
             </div>
@@ -101,8 +99,8 @@
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.8.0.min.js"><\/script>')</script>
-        <script src="js/plugins.js"></script>
-        <script src="js/main.js"></script>
+        <script src="/js/plugins.js"></script>
+        <script src="/js/main.js"></script>
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>
@@ -113,4 +111,4 @@
         </script>
     </body>
 </html>
-<?php }?>
+

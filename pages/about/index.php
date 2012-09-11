@@ -51,13 +51,7 @@
                             <p>Intresserad av att utveckla större projekt, kanske med PHP? Det får vi se efter kursen, men jag ser framemot att lära mig mer i alla fall.</p>
                         </div>
                         <div class="span4">
-                            <h2>Senaste uppgifter</h2>
-                            <div class="alert alert-info">
-                                <button type="button" class="close" data-dismiss="alert">×</button>
-                                <h3>Laboration 1</h3>
-                                <p>Labben är nu i sitt slutskede tror den är klar, bara checklistan att kolla igenom.</p>
-                                <a href="/uppgift/labb1/" class="btn btn-success">Gå till Labb 1</a>
-                            </div>
+                            <?php include('../../latest.php') ?>
                         </div>
                     </div>
                 </div>

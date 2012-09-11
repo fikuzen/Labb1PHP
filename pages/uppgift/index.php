@@ -62,18 +62,32 @@
                     					<td rowspan="3"><a href="labb1/" class="btn btn-success">Labb 1</a></td>
                     					<td>1</td>
                     					<td><span class="icon-ok"></span></td>
+                    					<td><span class="icon-ok"></span></td>
+                    					<td><span class="icon-minus"></span>G</td>
+                    				</tr>
+                    				<tr>
+                    					<td>2</td>
+                    					<td><span class="icon-ok"></span></td>
+                    					<td><span class="icon-ok"></span></td>
+                    					<td><span class="icon-minus"></span>G</td>
+                    				</tr>
+                    				<tr>
+                    					<td>3</td>
+                    					<td><span class="icon-ok"></span></td>
+                    					<td><span class="icon-ok"></span></td>
+                    					<td><span class="icon-minus"></span>G</td>
+                    				</tr>
+                    				<!-- Laboration 2 -->
+                    				<tr>
+                    					<td rowspan="2"><a href="labb2/" class="btn btn-success">Labb 2</a></td>
+                    					<td>1</td>
+                    					<td><span class="icon-minus"></span></td>
                     					<td><span class="icon-minus"></span></td>
                     					<td><span class="icon-minus"></span></td>
                     				</tr>
                     				<tr>
                     					<td>2</td>
-                    					<td><span class="icon-ok"></span></td>
                     					<td><span class="icon-minus"></span></td>
-                    					<td><span class="icon-minus"></span></td>
-                    				</tr>
-                    				<tr>
-                    					<td>3</td>
-                    					<td><span class="icon-ok"></span></td>
                     					<td><span class="icon-minus"></span></td>
                     					<td><span class="icon-minus"></span></td>
                     				</tr>
@@ -88,13 +102,7 @@
                     		</table>
                        	</div>
                         <div class="span4">
-                            <h2>Senaste uppgifter</h2>
-                            <div class="alert alert-info">
-                                <button type="button" class="close" data-dismiss="alert">×</button>
-                                <h3>Laboration 1</h3>
-                                <p>Labben är nu i sitt slutskede tror den är klar, bara checklistan att kolla igenom.</p>
-                                <a href="labb1/" class="btn btn-success">Gå till Labb 1</a>
-                            </div>
+                            <?php include('../../latest.php') ?>
                         </div>
                     </div>
                 </div>
