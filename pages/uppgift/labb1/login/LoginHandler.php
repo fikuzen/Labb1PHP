@@ -1,70 +1,45 @@
 <?php
 
 class LoginHandler{
-		
+	private $m_sessionLoggedIn = "loggedIn";
+			
 	// Create temporary Users
-	private $users = array("Fisk", "Fisken", "Sture");
+	private $users = array("Fisk" => "Fisk22", "Fisken" => "Fisken22", "Sture" => "Sture22");
 	private $password = array("Fisk22", "Fisken22", "Sture22");
+	
+	
 	
 	// Create a error array
 	public $errors = array();
 	
 	// Is the user loggedin?
 	public function IsLoggedIn() {
-		if($_SESSION["loggedIn"]) {
+		if($_SESSION[$this->m_sessionLoggedIn]) {
 			return true;
 		}
 		return false;
 	}
 	
 	// Logging in a user if the password is right.
-	public function DoLogin($user, $password) {
+	public function DoLogin($tryUser, $tryPassword) {
 		
 		/* 
 		 * Creates a test for all users.
 		 * Checking if the users exists.
 		 * Checking if the password is equal to the relevant user.
 		 */
-		 
-		for($i = 0; $i < count($this->users); $i++) {
-			if($user == $this->users[$i]){
-				if($password == $this->password[$i]){
-					$_SESSION['loggedIn'] = true;
-					return true;					
-				}
-				return false;
-			}
-		}
-		
-		/*
-		switch($user) {
-			case $this->users[0]:
-				if($password == $this->password[0]){
-					$_SESSION['loggedIn'] = true;
-					return true;					
-				}
-				return false;
-				
-			case $this->users[1]:
-				if($password == $this->password[1]){
-					$_SESSION['loggedIn'] = true;
-					return true;					
-				}
-				return false;
-				
-			case $this->users[2]:
-				if($password == $this->password[2]){
-					$_SESSION['loggedIn'] = true;
-					return true;					
-				}
-				return false;
-		}
-		*/
+		 foreach ($this->users as $user => $password) {
+			 if($tryUser == $user && $password == $tryPassword) {
+			 	$_SESSION[$this->m_sessionLoggedIn] = true;
+				return true;
+			 }
+			 return false;
+		 }
 	}
 	
 	// Logging out a user.
 	public function DoLogout() {
-		$_SESSION['loggedIn'] = false;
+		$_SESSION[$this->m_sessionLoggedIn] = false;
 	}
 	
 	// Automatiska enhetstest.

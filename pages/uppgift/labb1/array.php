@@ -12,7 +12,7 @@
 			
 			// Vänder arrayen
 			for($i = $arrayLength-1; $i >= 0; $i--) {
-				array_push($result, $array[$i]);
+				$result[] = $array[$i];
 			}
 			//Ersätt denna rad med din kod som vänder arrayen.
 			return $result;

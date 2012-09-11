@@ -1,6 +1,5 @@
 <?php 
 	session_start();
-	$_SESSION['loggedIn'] = NULL;
 	
 	// Get required view files
 	require_once 'LoginView.php';
