@@ -1,43 +1,142 @@
 <?php
-	//länka in filer med funktioner som används
-	require_once "math.php";
-	require_once "array.php";
 	require_once "login/LoginHandler.php";
 	
 	//Här börjar vår php kod.
-	$body = "<h1>Enhetstester</h1>";		
-	
-	//Test av math.php
-	$body .= "<h2>Matematiktest</h2>";
-	
-	$math = new MathLib();
-	if ($math->Test() == true) {
-		$body .= "<p>Matematiktest ok</p>";
-	} else {
-		$body .= "<p>Matematiktest fungerar ej</p>";
-	}
-
-	//Test av array.php		
-	//Ni skall själva implementera funktionerna i array.php
-	$body .= "<h2>Array-test</h2>";
-	
-	$aHandler = new ArrayHandler();
-	if ($aHandler->Test() == true) {
-		$body .= "<p>Arraytest ok</p>";
-	} else {
-		$body .= "<p>Arraytest fungerar ej</p>";
-	}
-	
+	$bodyLeft = "<h2>Enhetstester</h2>";
+	$bodyRight = "<h2>Frågor & Svar</h2>";
+		
 	//Test av login.php
 	//Implementera själv både funktioner och test
-	$body .= "<h2>Login-test</h2>";
+	$bodyLeft .= "<h3>Login-test</h3>";
 	
 	$login = new LoginHandler();
 	if (count($login->Test()) == 0) {
-		$body .= "<p>Logintest ok</p>";
+		$bodyLeft .= "<p>Logintest ok</p>";
 	} else {
-		$body .= "<p>Logintest fungerar ej</p>";
+		$bodyLeft .= "<p>Logintest fungerar ej</p>";
 	}
+	
+	// Svar på frågor
+	$bodyRight .= "
+				<ol>
+					<li>Ta reda på vad som skiljer följande funktioner som används för att dela upp en php applikation i flera filer
+						<dl>
+							<dt>require</dt>
+							<dd>Skillnaden på require och include är att require skickar ett fatal error. \"E_COMPILE_ERROR\", alltså kommer sidan att krascha</dd>
+							<dt>require_once</dt>
+							<dd>Denna är identisk till require men den kommer bara att ladda en gång. Alltså ifall den i en ny php fil krävs igen men redan blivit laddad så kommer den inte att laddas igen.</dd>
+							<dt>include</dt>
+							<dd>När man kör med include så kommer applikationen att fortsätta köras men man får en warning att filen inte finns.</dd>
+							<dt>include_once</dt>
+							<dd>Samma sak som require_once man kommer bara att ladda en fil en gång.</dd>
+						</dl>
+					</li>
+					<li>Vilka värden kan följande datatyper ta
+						<dl>
+							<dt>Integer</dt>
+							<dd>Siffror och inte decimal tal. Beroende på vilket bit system som används har det olika max tag. På 32 Bits system är max 2147483648 och min -2147483648</dd>
+							<dt>Float</dt>
+							<dd>Siffror och decimaltal, med 5 decimals precision.</dd>
+							<dt>Bool</dt>
+							<dd>TRUE / FALSE, versaler / gemener spelar ingen roll</dd>
+							<dt>String</dt>
+							<dd>En samling av tecken kan innehålla allt i ett 256-tecken system. Det finns olika teckenkominationer isamband med ett \ för att göra t.ex. Radbrytningar, Tabbar.</dd>
+							<dt>Array</dt>
+							<dd>En array kan ha vad du än vill i princip, vilken datatyp som helst med vilket värde som helst. Du kan skicka in en integer i en array som bara bestod av strängar och man kan ha i princip ALLT.</dd>
+						</dl>
+					</li>
+					<li>Ta reda på hur följande funktioner fungerar och har för användningsområde, redovisa med kodexempel
+						<dl>
+							<dt>is_int</dt>
+							<dd>
+								Tar reda på ifall en variabel är av typen Integer.<br />
+								\"<br />
+								\$isIntTest = \"Strängen\";<br />
+								var_dump(is_int(\$isIntTest)); // FALSE<br />
+								\"<br />
+								Eftersom php är ett otypat språk så kan det finnas användningsområden då man vill vara säker på om det är av den typen man faktiskt måste ha det som.
+							</dd>
+							<dt>is_string</dt>
+							<dd>
+								Tar reda på ifall en variabel är av typen String.<br />
+								\"<br />
+								\$isStringTest = \"Strängen\";<br />
+								var_dump(is_int(\$isStringTest)); // TRUE<br />
+								\"<br />
+								Eftersom php är ett otypat språk så kan det finnas användningsområden då man vill vara säker på om det är av den typen man faktiskt måste ha det som.
+							</dd>
+							<dt>isset</dt>
+							<dd>
+								Tar reda på ifall en variable är satt, ifall den inte är NULL.<br />
+								\"<br />
+								\$issetTest = NULL;<br />
+								if(isset(\$issetTest)) {<br />
+								....echo \"issetTest är satt.\";<br />									
+								} else {<br />
+								....echo \"issetTest är inte satt.\"; // Den här koden exekveras.<br />
+								}<br />
+								\"<br />
+								Detta är användbart i många lägen bl.a. när man ska validera inloggning och man vill se att alla obligatoriska fält är skrivna.				
+							</dd>
+							<dt>gettype</dt>
+							<dd>
+								Används för att ta reda på av vilken type en specifik variabel är. t.ex.<br />
+								\"<br />
+								\$gettypeTest = \"Strängen\";<br />
+								var_dump(gettype(\$gettypeTest)); // STRING<br />
+								\"<br />
+								Detta kan vara användbart när man har ett värde som måste vara av en specifik typ och man är osäker på om den är av den typen.						
+							</dd>
+							<dt>is_numeric</dt>
+							<dd>
+								Används för att testa i fall det finns siffror i en variabel. t.ex. <br />
+								\"<br />
+								\$isNumericTest = array(\"42\", 42, \"eee\");<br />
+								var_dump(isNumericTest[0]); // TRUE<br />
+								var_dump(isNumericTest[1]); // TRUE<br />
+								var_dump(isNumericTest[2]); // FALSE<br />
+								\"<br />
+								Vet inte riktigt när man har behov av denna, men när man vill kontrollera att man jobbar med siffror kan de ju vara meningsfullt.								
+							</dd>
+							<dt>unset</dt>
+							<dd>
+								Används för att förstöra en specifik variabel.<br />
+								\"<br />
+								\$unsetTest = \"Fisk\";<br />
+								unset(\$unsetTest);<br />
+								var_dump(\$unsetTest); // Varning, variabeln finns inte. NULL<br />
+								\"<br />
+								Detta kan vara användbart när man t.ex. inte har behov av en variabel som fanns tidigare i applikationen.
+							</dd>
+						</dl>
+					</li>
+					<li>Vad ger följande kod för utskrift, varför?<br />
+						\"\$s = ' sträng';<br />
+						print('enkelfnuttar \$s');<br />
+						print(\"dubbelfnuttad \$s\");\"<br />
+						<dl>
+							<dt>print('enkelfnuttar \$s');</dt>
+							<dd>enkelfnuttar \$s</dd>
+							<dt>print(\"dubbelfnuttad \$s\");</dt>
+							<dd>dubbelfnuttad sträng</dd>
+						</dl>
+					</li>
+					<li>Vad finns i följande \"superglobala arrayer\"?
+						<dl>
+							<dt>\$_POST</dt>
+							<dd>Det som har blivit skickat genom HTTP scriptets POST metod. Allting samlas i en associativ array.</dd>
+							<dt>\$_GET</dt>
+							<dd>Det som står uppe i URL parametrarna t.ex. www.example.com?get1=1?get2=2. Så är get1 och get2 nycklarna i den associtiva arrayen och dess 1, 2 är dess värden.</dd>
+							<dt>\$_REQUEST</dt>
+							<dd>Innehåller innehållet av \$_POST, \$_GET och \$_COOKIE i en associativ array.</dd>
+							<dt>\$_SESSION</dt>
+							<dd>Innehåller variabler som blivit lagrad i sessioner i den nuvarande körningen av webbläsaren, sessioner förstörs när man stänger ner sessionen i phpskriptet eller stänger ner webbläsaren.</dd>
+							<dt>\$_COOKIE</dt>
+							<dd>Innehåller data som lagras i HTTP Cookies som lagras i webbläsaren under en temporär tid, skillnader från sessioner är att den här datan finns kvar även om webbläsaren stängs ner.</dd>
+						</dl>
+					</li>
+				</ol>
+				";
 ?>
 
 <!DOCTYPE html>
@@ -48,7 +147,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Laboration 1</title>
+        <title>Laboration 2</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
 
@@ -84,10 +183,18 @@
                 <div class="clearfix"></div>
                 </nav>
                 <div id="content">
+                	<div class="row">
+                		<div class="span12">
+                			<h1>Laboration 2</h1>
+                    	</div>
+                	</div>
                     <div class="row">
-                    	<div class="span12">
-                    		<?php echo $body; ?>
+                    	<div class="span6">
+                    		<?php echo $bodyLeft; ?>
                     		<a class="btn btn-small btn-success" href="login/">Login sidan</a>
+                    	</div>
+                    	<div class="span6">
+                    		<?php echo $bodyRight; ?>
                     	</div>
                     </div>
                 </div>
