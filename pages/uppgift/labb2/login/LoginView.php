@@ -1,47 +1,50 @@
 <?php
 
-/**
- * A view that only generates output 
- * This view is/can be used from several controllers
- */
-class LoginView {  
-  // Get username
-  public function GetUserName() {
-  	if(isset($_POST['user'])) {
-  		return $_POST['user'];
-  	}
-  	return NULL;
-  }
+class LoginView{
+	const INLOGGED = 0;
+	const OUTLOGGED = 1;
+	
+	// Get username
+	public function getUserName() {
+		if(isset($_POST['user'])) {
+			return $_POST['user'];
+		}
+		return NULL;
+	}
   
-  // Get password
-  public function GetPassword() {
-  	if(isset( $_POST['password'])) {
-  		return $_POST['password'];
-  	}
-  	return NULL;
-  }
-  
-  // User tried to login?
-  public function TriedToLogin() {
-  	if(isset($_POST['login'])){
-  		return true;
-  	}
-	return false;
-  }
+	// Get password
+	public function getPassword() {
+  		if(isset( $_POST['password'])) {
+			return $_POST['password'];
+  		}
+  		return NULL;
+	}
+	
+	// Did a user try to login?
+	public function triedToLogin() {
+		if(isset($_POST['login'])){
+			return true;
+  		}
+		return false;
+	}
 
-  // User tried to logout?
-  public function TriedToLogout() {
-  	if(isset($_POST['logout'])){
-  		return true;
-  	}
-	return false;
-  }
-  
-  // Generate HTMLcode to login box
-  public function DoLoginBox() {
-    return "
-	    <div class='row'>
-			<div class='span6'>
+	// User tried to logout?
+	public function triedToLogout() {
+  		if(isset($_POST['logout'])){
+  			return true;
+  		}
+		return false;
+	}
+	
+	public function doOutput($userHasLoggedIn, $authStatus, $loginError) {
+		if($userHasLoggedIn) {
+		    $form = "
+				<form method='post' action='index.php'>
+			    	<input type='submit' name='logout' class='btn btn-small' value='Logga Ut'>
+		    	</form>
+			";
+		} else {
+			$form = "
 			    <form class='form-horizontal' method='POST' action='index.php'>
 					<label for='user'>Användarnamn</label>
 					<input type='text' placeholder='Användarnamn' name='user' id='user' />
@@ -53,12 +56,53 @@ class LoginView {
 					</div>
 					<input type='submit' id='login' name='login' class='btn btn-small' value='Logga In'/>
 				</form>
+		    ";
+		}
+		
+		if ($authStatus == self::OUTLOGGED) {
+			$authStatusMessage = "
+				<div class=\"alert alert-info\">
+					<p>Du behöver logga in för att se mer information.</p>
+				</div>
+			";
+		} else {
+			$authStatusMessage = "
+				<div class=\"alert alert-success\">
+					<p>Du är inloggad.</p>
+				</div>
+			";
+		}
+		
+		
+		$loginErrorMessage = "";
+		if ($loginError) {
+			$loginErrorMessage = "
+				<div class=\"alert alert-error\">
+					<p>Fel användarnamn eller lösenord.</p>
+				</div>
+			";
+		}
+		
+		return "
+			<h2>Login Controller</h2>
+			<div class=\"row\">
+				<div class=\"span4\">
+					$form
+				</div>
+				<div class=\"span8\">
+					$authStatusMessage
+				</div>
 			</div>
-	";
+			<div class=\"row\">
+				<div class=\"span4\">
+					$loginErrorMessage
+				</div>
+			</div>
+		";
   }
   
   // Generate HTMLcode to logout box
-  public function DoLogoutBox() {
+  public function doLogoutBox() {
     return "
 		    <div class='span6'>
 			    <form method='post' action='index.php'>
@@ -67,5 +111,4 @@ class LoginView {
 		    </div>
 	    </div><!-- End of ROW1 -->";
   }
-  
 }

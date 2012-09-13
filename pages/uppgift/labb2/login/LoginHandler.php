@@ -13,7 +13,7 @@ class LoginHandler{
 	public $errors = array();
 	
 	// Is the user loggedin?
-	public function IsLoggedIn() {
+	public function isLoggedIn() {
 		if($_SESSION[$this->m_sessionLoggedIn]) {
 			return true;
 		}
@@ -21,7 +21,7 @@ class LoginHandler{
 	}
 	
 	// Logging in a user if the password is right.
-	public function DoLogin($tryUser, $tryPassword) {
+	public function doLogin($tryUser, $tryPassword) {
 		
 		/* 
 		 * Creates a test for all users.
@@ -38,7 +38,7 @@ class LoginHandler{
 	}
 	
 	// Logging out a user.
-	public function DoLogout() {
+	public function doLogout() {
 		$_SESSION[$this->m_sessionLoggedIn] = false;
 	}
 	
@@ -69,7 +69,7 @@ class LoginHandler{
 		
 		// Logging out the inlogged test user.
 		$this->DoLogout();		
-		if($_SESSION["loggedIn"]){
+		if($_SESSION[$this->m_sessionLoggedIn]){
 			array_push($this->errors, "Something is wrong with the DoLogout() function");	
 		}
 		

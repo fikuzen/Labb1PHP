@@ -81,7 +81,7 @@
                     				<tr>
                     					<td rowspan="2"><a href="labb2/" class="btn btn-success">Labb 2</a></td>
                     					<td>1</td>
-                    					<td><span class="icon-minus"></span></td>
+                    					<td><span class="icon-ok"></span></td>
                     					<td><span class="icon-minus"></span></td>
                     					<td><span class="icon-minus"></span></td>
                     				</tr>
