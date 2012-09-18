@@ -43,14 +43,8 @@ class LoginHandler{
 			 	$_SESSION[$this->m_sessionLoggedIn] = true;
 				return true;
 			 } else {
-			 	// Username doesn't exist
-			 	if ($tryUser != $user) {
-			 		throw new Exception("The user doesn't exist.", 2002);
-			 	} 
-			 	// Wrong password.
-			 	elseif ($tryPassword != $password) {
-			 		throw new Exception("Wrong lösenord", 2003);
-			 	}
+			 	// Wrong Username or password
+		 		throw new Exception("Wrong username or password", 2002);
 			 	return false;	
 			 }
 		 }
