@@ -5,9 +5,8 @@
 	$bodyLeft = "";
 	$bodyRight = "<h2>Frågor & Svar</h2>";
 		
-	//Test av login.php	
-	$login = new LoginHandler();
-	$testResults = $login->Test();
+	//Test av login.php
+	$testResults = LoginHandler::Test();
 	if (count($testResults) == 0) {
 		$bodyLeft .= "
 					<div class='span3'>

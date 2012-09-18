@@ -46,52 +46,54 @@ class LoginHandler{
 	}
 	
 	// Automatiska enhetstest.
-	public function Test() {
+	public static function Test() {
+		$sut = new LoginHandler();
+		
 		// Logging out a user.
-		$this->DoLogout();
+		$sut->DoLogout();
 		
 		// Shouldn't be logged in.
-		if ($this->IsLoggedIn()){
-			array_push($this->errors, "Something is wrong with the IsLoggedIn() function \"When you shouldn't be logged in\"");
+		if ($sut->IsLoggedIn()){
+			array_push($sut->errors, "Something is wrong with the IsLoggedIn() function \"When you shouldn't be logged in\"");
 		}
 			
 		// DoLogin fail user
 		try {
-			$this->DoLogin("Fiskpinne", "Fläskpannkaka");
-			array_push($this->errors, "Something is wrong with the DoLogin(\"Fiskpinne\", \"Fläskpannkaka\") function");
+			$sut->DoLogin("Fiskpinne", "Fläskpannkaka");
+			array_push($sut->errors, "Something is wrong with the DoLogin(\"Fiskpinne\", \"Fläskpannkaka\") function");
 		} catch (exception $e) {			
 		}
 		
 		// DoLogin success user
-		if(!($this->DoLogin("Fisk", "Fisk22"))){
-			array_push($this->errors, "Something is wrong with the DoLogin(\"Fisk\", \"Fisk22\") function");
+		if(!($sut->DoLogin("Fisk", "Fisk22"))){
+			array_push($sut->errors, "Something is wrong with the DoLogin(\"Fisk\", \"Fisk22\") function");
 		}
 		
 		// Should be logged in.
-		if(!($this->IsLoggedIn())){
-			array_push($this->errors, "Something is wrong with the IsLoggedIn() function \"When you should be logged in\"");
+		if(!($sut->IsLoggedIn())){
+			array_push($sut->errors, "Something is wrong with the IsLoggedIn() function \"When you should be logged in\"");
 		}
 		
 		// Logging out the inlogged test user.
-		$this->DoLogout();		
-		if($this->isLoggedIn()){
-			array_push($this->errors, "Something is wrong with the DoLogout() function");	
+		$sut->DoLogout();		
+		if($sut->isLoggedIn()){
+			array_push($sut->errors, "Something is wrong with the DoLogout() function");	
 		}
 		
 		// DoLogin right username, fail password
 		try {
-			$this->DoLogin("Fisk", "Fisken22");
-			array_push($this->errors, "Something is wrong with the DoLogin(\"Fisk\", \"Fisken22\") function");
+			$sut->DoLogin("Fisk", "Fisken22");
+			array_push($sut->errors, "Something is wrong with the DoLogin(\"Fisk\", \"Fisken22\") function");
 		} catch (exception $e) {			
 		}
 		
 		// DoLogin fail username, right password
 		try {
-			$this->DoLogin("Fisken", "Fisk22");
-			array_push($this->errors, "Something is wrong with the DoLogin(\"Fisken\", \"Fisk22\") function");
+			$sut->DoLogin("Fisken", "Fisk22");
+			array_push($sut->errors, "Something is wrong with the DoLogin(\"Fisken\", \"Fisk22\") function");
 		} catch (exception $e) {			
 		}
 
-		return $this->errors;
+		return $sut->errors;
 	}
 }
