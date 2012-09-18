@@ -2,7 +2,7 @@
 <div class="alert alert-info">
     <button type="button" class="close" data-dismiss="alert">×</button>
     <h3>Laboration 2</h3>
-    <p>Labben ska påbörjas så snart som möjligt!</p>
+    <p>Labben har påbörjats och nu är de bara slutklämmen kvar!</p>
     <a href="/pages/uppgift/labb2/" class="btn btn-success">Gå till Labb 2</a>
 </div>
 <div class="alert alert-info">

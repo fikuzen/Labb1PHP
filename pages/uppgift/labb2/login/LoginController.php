@@ -4,31 +4,37 @@
 	require_once('LoginHandler.php');
 	
 	class LoginController {
-		
+				
 		public function doControll(){
 			$loginView = new LoginView();
 			$loginHandler = new LoginHandler();
 			
-			$authStatus = LoginView::OUTLOGGED;
-			$loginError = false;
+			
+			$html = $loginView->doLoginPart();
+			$loginError = array();
 			
 			if($loginHandler->isLoggedIn()) {
 				if($loginView->triedToLogout()){
 			 		$loginHandler->doLogout();
-					$authStatus = LoginView::OUTLOGGED;	
+					$html = $loginView->doLoginPart();	
 				}
 			}
 			if($loginView->triedToLogin()) {
-				if($loginHandler->doLogin($loginView->getUserName(), $loginView->getPassword())){
-					$authStatus = LoginView::INLOGGED;	
-				} else {
-					$loginError = true;
+				try {
+					if($loginView->triedToRememberUser()){
+						$loginView->userToRemember($loginView->getUserName(), $loginView->getPassword());
+					} else {
+						$loginView->forgetUser();
+					}
+					if($loginHandler->doLogin($loginView->getUserName(), $loginView->getPassword())){
+						$html = $loginView->doLogoutPart();
+					}
+				}
+				catch (exception $e) {
+					$loginError[] .= $e->getMessage();
 				}
 			}
 			
-			// Boolean
-			$userHasLoggedIn = $loginHandler->isLoggedIn();
-			
-			return $loginView->doOutput($userHasLoggedIn, $authStatus, $loginError);
+			return $html . $loginView->doErrorList($loginError);
 		}
 	}
