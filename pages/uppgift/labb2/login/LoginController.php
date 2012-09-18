@@ -9,15 +9,16 @@
 			$loginView = new LoginView();
 			$loginHandler = new LoginHandler();
 			
-			
-			$html = $loginView->doLoginPart();
 			$loginError = array();
 			
 			if($loginHandler->isLoggedIn()) {
+				$html = $loginView->doLogoutPart();
 				if($loginView->triedToLogout()){
 			 		$loginHandler->doLogout();
 					$html = $loginView->doLoginPart();	
 				}
+			} else {
+				$html = $loginView->doLoginPart();
 			}
 			if($loginView->triedToLogin()) {
 				try {

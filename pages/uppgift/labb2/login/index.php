@@ -1,6 +1,5 @@
 <?php 
 	session_start();
-	$_SESSION['loggedIn'] = false;
 	
 	require_once('LoginController.php');
 	

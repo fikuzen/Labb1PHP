@@ -3,64 +3,93 @@
 class LoginView{
 	
 	private $m_controllerName = "LoginController";
+	
 	private $m_cookieUsername = "Username";
 	private $m_cookiePassword = "Password";
+	
+	private $m_postLogout = "logout";
+	private $m_postPassword = "password";
+	private $m_postUsername = "username";
+	private $m_postLogin = "login";
+	private $m_postRemember = "remember";
 	
 	private $m_username = "";
 	private $m_password = "";
 	
-	private static $m_oneMinute = 60;
+	// Static variable for cookie timer. (1800 = 30minutes.)
+	private static $m_cookieTimer = 1800;
 		
-	// Get username
+	/**
+	 * Get username
+	 */
 	public function getUserName() {
-		if(isset($_POST['user'])) {
-			return $_POST['user'];
+		if(isset($_POST[$this->m_postUsername])) {
+			return $_POST[$this->m_postUsername];
 		}
 		return NULL;
 	}
   
-	// Get password
+	/**
+	 * Get password
+	 */ 
 	public function getPassword() {
-  		if(isset( $_POST['password'])) {
-			return $_POST['password'];
+  		if(isset( $_POST[$this->m_postPassword])) {
+			return $_POST[$this->m_postPassword];
   		}
   		return NULL;
 	}
 	
-	// Did a user try to login?
+	/**
+	 * Did a user try to login?
+	 */
 	public function triedToLogin() {
-		return isset($_POST['login']);
+		return isset($_POST[$this->m_postLogin]);
 	}
 
-	// User tried to logout?
+	/**
+	 * User tried to logout?
+	 */
 	public function triedToLogout() {
-  		return isset($_POST['logout']);
+  		return isset($_POST[$this->m_postLogout]);
 	}
 	
-	// Remember me or not?
+	/**
+	 * Remember me checkbox checked?
+	 */
 	public function triedToRememberUser() {
-		return isset($_POST['remember']);
+		return isset($_POST[$this->m_postRemember]);
 	}
 		
-	// Which user should be remembered
+	/**
+	 * Set a cookie with the Username, Password.
+	 */
 	public function userToRemember($username, $password) {
-		setcookie($this->m_cookieUsername, $username, time() + self::$m_oneMinute);
-		setcookie($this->m_cookiePassword, $password, time() + self::$m_oneMinute);
+		setcookie($this->m_cookieUsername, $username, time() + self::$m_cookieTimer);
+		setcookie($this->m_cookiePassword, $password, time() + self::$m_cookieTimer);
 	}
 	
+	/**
+	 * Removes the cookie for Username, Password.
+	 */
 	public function forgetUser() {
-		setcookie($this->m_cookieUsername, "", time() - self::$m_oneMinute);
-		setcookie($this->m_cookiePassword, "", time() - self::$m_oneMinute);
+		setcookie($this->m_cookieUsername, "", time() - self::$m_cookieTimer);
+		setcookie($this->m_cookiePassword, "", time() - self::$m_cookieTimer);
 	}
   
-	// Generate HTMLcode to a user who is logged in
+	/**
+	 * Generate HTMLcode to a user who is logged in
+	 * 
+	 * @return HTML CODE
+	 */
 	public function doLogoutPart() {
+		
+		// Returns a logout button.
 	    return "
 	    	<h2>$this->m_controllerName</h2>
 	    	<div class=\"row\">
 			    <div class='span4'>
 				    <form method='post' action='index.php'>
-				    	<input type='submit' name='logout' class='btn btn-small' value='Logga Ut'>
+				    	<input type='submit' name='$this->m_postLogout' class='btn btn-small' value='Logga Ut'>
 			    	</form>
 			    </div>
 			    <div class=\"span8\">				
@@ -72,24 +101,32 @@ class LoginView{
 	    ";
 	}
   
-  	// Generate HTMLcode to a user who ain't logged in.
+  	/**
+	 * Generate HTMLcode to a user who ain't logged in.
+	 * 
+	 * @return HTML CODE
+	 */
 	public function doLoginPart() {
+		
+		// Check if there's a cookie if there's a cookie load the login form with data for Username, Password.
 		$this->m_username = isset($_COOKIE[$this->m_cookieUsername]) ? $_COOKIE[$this->m_cookieUsername] : "";
 		$this->m_password = isset($_COOKIE[$this->m_cookiePassword]) ? $_COOKIE[$this->m_cookiePassword] : "";
+		
+		// Returns a login box.
 	    return "
 	    	<h2>$this->m_controllerName</h2>
 	    	<div class=\"row\">
 	    		<div class=\"span4\">
 				    <form class=\"form-horizontal\" method=\"POST\" action=\"index.php\">
-						<label for=\"user\">Användarnamn</label>
-						<input type=\"text\" value=\"$this->m_username\" placeholder=\"Användarnamn\" name=\"user\" id=\"user\" />
-						<label for=\"password\">Lösenord</label>
-						<input type=\"password\" value=\"$this->m_password\" placeholder=\"Lösenord\" name=\"password\" id=\"password\" /><br />
+						<label for=\"$this->m_postUsername\">Användarnamn</label>
+						<input type=\"text\" value=\"$this->m_username\" placeholder=\"Användarnamn\" name=\"$this->m_postUsername\" id=\"$this->m_postUsername\" />
+						<label for=\"$this->m_postPassword\">Lösenord</label>
+						<input type=\"password\" value=\"$this->m_password\" placeholder=\"Lösenord\" name=\"$this->m_postPassword\" id=\"$this->m_postPassword\" /><br />
 						<div class=\"checkbox\">
-						<label for=\"remember\">Kom ihåg mig
-						<input type=\"checkbox\" name=\"remember\" id=\"remember\"><br />
+						<label for=\"$this->m_postRemember\">Kom ihåg mig
+						<input type=\"checkbox\" name=\"$this->m_postRemember\" id=\"$this->m_postRemember\"><br />
 						</div>
-						<input type=\"submit\" id=\"login\" name=\"login\" class=\"btn btn-small\" value=\"Logga In\"/>
+						<input type=\"submit\" id=\"login\" name=\"$this->m_postLogin\" class=\"btn btn-small\" value=\"Logga In\"/>
 					</form>
 				</div>
 				<div class=\"span8\">
@@ -101,23 +138,31 @@ class LoginView{
 		";
 	}
 
-	// Generate HTMLcode for a errorList.
-	// Takes a array of errors as param.
+	/**
+	 * Generate HTMLcode for a errorList.
+	 * Takes a array of errors as param.  
+	 * 
+	 * @return $errorBox HTML CODE
+	 */ 
 	public function doErrorList($errors) {
 		if(count($errors) > 0){
+			
+			// Påbörja row, span4, alert alert-error.
 			$errorBox = "
 				<div class=\"row\">
 					<div class=\"span4\">
-						<div class=\"alert alert-error\">
-			";
+						<div class=\"alert alert-error\">";
+						
+			// Lägg till varje errro meddelande i errorboxen.			
 			foreach ($errors as $error) {
 				$errorBox .= $error . "<br />";
 			}
+			
+			// Avsluta row, span4, alert alert-error.
 			$errorBox .= "
 						</div>
 					</div>
-				</div>
-			";
+				</div>";
 			return $errorBox;
 		}
 		return null;		
