@@ -2,19 +2,10 @@
 	require_once "login/LoginHandler.php";
 	
 	//Här börjar vår php kod.
-	$bodyLeft = "<h2>Enhetstester</h2>";
+	$bodyLeft = "<h2>Meny</h2>";
 	$bodyRight = "<h2>Frågor & Svar</h2>";
-		
-	//Test av login.php
-	//Implementera själv både funktioner och test
-	$bodyLeft .= "<h3>Login-test</h3>";
 	
 	$login = new LoginHandler();
-	if (count($login->Test()) == 0) {
-		$bodyLeft .= "<p>Logintest ok</p>";
-	} else {
-		$bodyLeft .= "<p>Logintest fungerar ej</p>";
-	}
 	
 	// Svar på frågor
 	$bodyRight .= "
@@ -189,11 +180,12 @@
                     	</div>
                 	</div>
                     <div class="row">
-                    	<div class="span6">
+                    	<div class="span4">
                     		<?php echo $bodyLeft; ?>
                     		<a class="btn btn-small btn-success" href="login/">Login sidan</a>
+                    		<a class="btn btn-small btn-success" href="test.php">Testa applikationen</a>
                     	</div>
-                    	<div class="span6">
+                    	<div class="span8">
                     		<?php echo $bodyRight; ?>
                     	</div>
                     </div>
