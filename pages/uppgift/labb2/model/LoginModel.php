@@ -1,6 +1,6 @@
 <?php
 
-class LoginHandler{
+class LoginModel {
 	private $m_sessionLoggedIn = "loggedIn";
 			
 	/**
@@ -38,16 +38,20 @@ class LoginHandler{
 		 * Creates a test for all users.
 		 * When a user tries to login.
 		 */
-		 foreach ($this->users as $user => $password) {
-			 if($tryUser == $user && $tryPassword == $password) {
+		foreach ($this->users as $user => $password) {
+			if($tryUser == $user && $tryPassword == $password) {
 			 	$_SESSION[$this->m_sessionLoggedIn] = true;
 				return true;
-			 } else {
-			 	// Wrong Username or password
-		 		throw new Exception("Wrong username or password", 2002);
-			 	return false;	
-			 }
-		 }
+			} else {
+				// Wrong Username or password
+			 	$correctLogIn = false;	
+			}
+		}
+		// Throw Exception if login information is wrong.
+		if($correctLogIn == false) {
+			throw new Exception("Wrong username or password", 2002);
+		}
+		return $correctLogIn;
 	}
 	
 	
@@ -66,7 +70,7 @@ class LoginHandler{
 	public static function Test() {
 		
 		// Creates a System Under Test object.
-		$sut = new LoginHandler();
+		$sut = new LoginModel();
 		
 		// Logging out a user.
 		$sut->DoLogout();

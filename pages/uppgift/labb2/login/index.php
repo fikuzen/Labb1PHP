@@ -1,19 +1,26 @@
 <?php 
 	session_start();
-	
-	require_once('LoginController.php');
+	 
+	require_once('../controller/LoginController.php');
+	require_once('../controller/FileUploadController.php');
 	
 	// The Title
 	$title = "Labb2 -> Logga in";
 	
+	$html = array(0 => "", 1 => "");
+	
 	
 	class MasterController {
         public static function doControll() {
+        	
                 // Instance of LoginController
                 $loginController = new LoginController();
+				$fileUploadController = new FileUploadController();
                 
 				// Get HTML5 Site
                 $html = $loginController->doControll();
+				$html['right'] .= $fileUploadController->doControll();
+				
                 
                 return $html;
         }
@@ -54,7 +61,15 @@
             <div class="clearfix"></div>
             </nav>
             <div id="content">
-            	<?php echo $body ?>
+        		<?php echo $body['header'] ?>
+            	<div class="row">
+			    	<div class="span3">
+            			<?php echo $body['left'] ?>
+            		</div>
+            		<div class="span9">
+            			<?php echo $body['right'] ?>
+            		</div>
+            	</div>
             	<div class="clearfix"></div>
             </div> <!-- End of content-->
         </div> <!-- End of wrapper -->
@@ -62,6 +77,9 @@
             <p class="small">Ansvarig för texten på hemsidan är Christoffer Rydberg (CR222CS) - WP11 Distans, &copy; Copyright</p>
         </footer>
     </div> <!-- End of container -->
+    <script src="/js/vendor/jquery-1.8.0.min.js" type="text/javascript"></script>
+    <script src="/js/vendor/bootstrap.min.js" type="text/javascript"></script>
+    <script src="/js/main.js" type="text/javascript"></script>
 </body>
 </html>
 </head>

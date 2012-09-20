@@ -46,3 +46,7 @@ label {
 .contact-info {
 	margin-top: 10px;
 }
+
+#loginForm {
+	display: none;
+}

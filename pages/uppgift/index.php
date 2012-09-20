@@ -63,25 +63,39 @@
                     					<td>1</td>
                     					<td><span class="icon-ok"></span></td>
                     					<td><span class="icon-ok"></span></td>
-                    					<td><span class="icon-minus"></span>G</td>
+                    					<td>G</td>
                     				</tr>
                     				<tr>
                     					<td>2</td>
                     					<td><span class="icon-ok"></span></td>
                     					<td><span class="icon-ok"></span></td>
-                    					<td><span class="icon-minus"></span>G</td>
+                    					<td>G</td>
                     				</tr>
                     				<tr>
                     					<td>3</td>
                     					<td><span class="icon-ok"></span></td>
                     					<td><span class="icon-ok"></span></td>
-                    					<td><span class="icon-minus"></span>G</td>
+                    					<td>G</td>
                     				</tr>
                     				<!-- Laboration 2 -->
                     				<tr>
                     					<td rowspan="2"><a href="labb2/" class="btn btn-success">Labb 2</a></td>
                     					<td>1</td>
                     					<td><span class="icon-ok"></span></td>
+                    					<td><span class="icon-ok"></span></td>
+                    					<td>G</td>
+                    				</tr>
+                    				<tr>
+                    					<td>2</td>
+                    					<td><span class="icon-ok"></span></td>
+                    					<td><span class="icon-ok"></span></td>
+                    					<td>G</td>
+                    				</tr>
+                    				<!-- Laboration 3 -->
+                    				<tr>
+                    					<td rowspan="4"><a href="labb3/" class="btn btn-success">Labb 3</a></td>
+                    					<td>1</td>
+                    					<td><span class="icon-minus"></span></td>
                     					<td><span class="icon-minus"></span></td>
                     					<td><span class="icon-minus"></span></td>
                     				</tr>
@@ -90,6 +104,18 @@
                     					<td><span class="icon-minus"></span></td>
                     					<td><span class="icon-minus"></span></td>
                     					<td><span class="icon-minus"></span></td>
+                    				</tr>
+                    				<tr>
+                    					<td>3</td>
+                    					<td><span class="icon-minus"></span></td>
+                    					<td><span class="icon-minus"></span></td>
+                    					<td><span class="icon-minus"></span></td>
+                    				</tr>
+                    				<tr>
+                    					<td>4</td>
+                    					<td><span class="icon-minus"></span></td>
+                    					<td><span class="icon-minus"></span></td>
+                    					<td><span class="icon-minus"></span></td>>
                     				</tr>
                     			</tbody>
                     			<tfoot>

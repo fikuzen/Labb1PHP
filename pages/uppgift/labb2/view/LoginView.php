@@ -84,21 +84,21 @@ class LoginView{
 	public function doLogoutPart() {
 		
 		// Returns a logout button.
-	    return "
-	    	<h2>$this->m_controllerName</h2>
-	    	<div class=\"row\">
-			    <div class='span4'>
-				    <form method='post' action='index.php'>
-				    	<input type='submit' name='$this->m_postLogout' class='btn btn-small' value='Logga Ut'>
-			    	</form>
-			    </div>
-			    <div class=\"span8\">				
-			    	<div class=\"alert alert-success\">
-						<p>Du är inloggad.</p>
-					</div>
+	    return array(
+	    		'header' => "
+	    		<h2>Christoffers Filuppladdning</h2>
+	    		",
+	    		'left' => "
+			    <form method='post' action='index.php'>
+			    	<input type='submit' name='$this->m_postLogout' class='btn btn-large' value='Logga Ut'>
+		    	</form>
+			    ",
+			    'right' => "				
+		    	<div class=\"alert alert-success\">
+		    		<button type=\"button\" id=\"loginFormClose\" data-dismiss=\"alert\" class=\"close\">×</button>
+					<p>Du är inloggad.</p>
 				</div>
-		    </div><!-- End of ROW1 -->
-	    ";
+	    ");
 	}
   
   	/**
@@ -113,29 +113,31 @@ class LoginView{
 		$this->m_password = isset($_COOKIE[$this->m_cookiePassword]) ? $_COOKIE[$this->m_cookiePassword] : "";
 		
 		// Returns a login box.
-	    return "
-	    	<h2>$this->m_controllerName</h2>
-	    	<div class=\"row\">
-	    		<div class=\"span4\">
-				    <form class=\"form-horizontal\" method=\"POST\" action=\"index.php\">
-						<label for=\"$this->m_postUsername\">Användarnamn</label>
-						<input type=\"text\" value=\"$this->m_username\" placeholder=\"Användarnamn\" name=\"$this->m_postUsername\" id=\"$this->m_postUsername\" />
-						<label for=\"$this->m_postPassword\">Lösenord</label>
-						<input type=\"password\" value=\"$this->m_password\" placeholder=\"Lösenord\" name=\"$this->m_postPassword\" id=\"$this->m_postPassword\" /><br />
-						<div class=\"checkbox\">
-						<label for=\"$this->m_postRemember\">Kom ihåg mig
-						<input type=\"checkbox\" name=\"$this->m_postRemember\" id=\"$this->m_postRemember\"><br />
-						</div>
-						<input type=\"submit\" id=\"login\" name=\"$this->m_postLogin\" class=\"btn btn-small\" value=\"Logga In\"/>
-					</form>
-				</div>
-				<div class=\"span8\">
+	    return array('header' => "
+	    			<h2>Christoffers Filuppladdning</h2>
+	    			",
+	    			'left' => "
+	    			<button id=\"loginShowButton\" class=\"btn btn-large\">Logga in</button>
+	    			<div id=\"loginForm\" class=\"alert alert-info\">
+	    				<button type=\"button\" id=\"loginFormClose\" class=\"close\">×</button>
+					    <form class=\"form-horizontal\" method=\"POST\" action=\"index.php\">
+							<label for=\"$this->m_postUsername\">Användarnamn</label>
+							<input type=\"text\" value=\"$this->m_username\" placeholder=\"Användarnamn\" name=\"$this->m_postUsername\" id=\"$this->m_postUsername\" />
+							<label for=\"$this->m_postPassword\">Lösenord</label>
+							<input type=\"password\" value=\"$this->m_password\" placeholder=\"Lösenord\" name=\"$this->m_postPassword\" id=\"$this->m_postPassword\" /><br />
+							<div class=\"checkbox\">
+							<label for=\"$this->m_postRemember\">Kom ihåg mig
+							<input type=\"checkbox\" name=\"$this->m_postRemember\" id=\"$this->m_postRemember\"><br />
+							</div>
+							<input type=\"submit\" id=\"login\" name=\"$this->m_postLogin\" class=\"btn btn-small\" value=\"Logga In\"/>
+						</form>
+					</div>
+					", 
+					'right' => "
 					<div class=\"alert alert-info\">
 							<p>Du behöver logga in för att se mer information.</p>
 					</div>
-				</div>
-			</div> <!-- End of Row1 -->
-		";
+					");
 	}
 
 	/**
@@ -144,22 +146,15 @@ class LoginView{
 	 * 
 	 * @return $errorBox HTML CODE
 	 */ 
-	public function doErrorList($errors) {
-		if(count($errors) > 0){
+	public function doErrorList($error) {
+		if($error != ""){
 			
 			// Påbörja row, span4, alert alert-error.
 			$errorBox = "
 				<div class=\"row\">
 					<div class=\"span4\">
-						<div class=\"alert alert-error\">";
-						
-			// Lägg till varje errro meddelande i errorboxen.			
-			foreach ($errors as $error) {
-				$errorBox .= $error . "<br />";
-			}
-			
-			// Avsluta row, span4, alert alert-error.
-			$errorBox .= "
+						<div class=\"alert alert-error\"> 
+							" . $error . "<br />
 						</div>
 					</div>
 				</div>";

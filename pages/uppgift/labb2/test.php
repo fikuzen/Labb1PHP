@@ -1,12 +1,12 @@
 <?php
-	require_once "login/LoginHandler.php";
+	require_once "model/LoginModel.php";
 	
 	//Här börjar vår php kod.
 	$bodyLeft = "";
 	$bodyRight = "<h2>Frågor & Svar</h2>";
 		
 	//Test av login.php
-	$testResults = LoginHandler::Test();
+	$testResults = LoginModel::Test();
 	if (count($testResults) == 0) {
 		$bodyLeft .= "
 					<div class='span3'>

@@ -1,11 +1,11 @@
 <?php
-	require_once "login/LoginHandler.php";
+	require_once "model/LoginModel.php";
 	
 	//Här börjar vår php kod.
 	$bodyLeft = "<h2>Meny</h2>";
 	$bodyRight = "<h2>Frågor & Svar</h2>";
 	
-	$login = new LoginHandler();
+	$login = new LoginModel();
 	
 	// Svar på frågor
 	$bodyRight .= "
