@@ -1,27 +1,46 @@
 <?php 
 	session_start();
-	 
+	
+	require_once('../model/database/DBSettings.php');
+	require_once('../model/database/Database.php');
 	require_once('../controller/LoginController.php');
 	require_once('../controller/FileUploadController.php');
+	require_once('../controller/UserController.php');
+	require_once('../view/NavigationView.php');
 	
 	// The Title
-	$title = "Labb2 -> Logga in";
-	
-	$html = array(0 => "", 1 => "");
-	
+	$title = "Labb3 -> Logga in";	
 	
 	class MasterController {
         public static function doControll() {
-        	
-            // Instance of LoginController
-            $loginController = new LoginController();
-				$fileUploadController = new FileUploadController();
-                
-				// Get HTML5 Site
-            $html = $loginController->doControll();
-				$html['right'] .= $fileUploadController->doControll();
+        		
+				// Database
+				$dbSettings = new DBSettings();
+        		$db = new Database();
+				$db->Connect($dbSettings);
 				
-                
+				// Instance of NavigationView
+				$navigationView = new NavigationView();
+				
+				if ( isset($_GET[NavigationView::getUserQuery()]) ){
+					// Creates instances of controllers needed.
+					$userController = new UserController($db);
+					
+					// Get HTML Site
+					$html = $userController->doControll($db);
+				}
+				else {
+					// Creates instances of controllers needed.
+					$loginController = new LoginController();
+					$fileUploadController = new FileUploadController();
+					
+					// Get HTML Site
+	            $html = $loginController->doControll($db);
+					$html['right'] .= $fileUploadController->doControll($db);
+				}
+
+				$db->Close();
+            
 				return $html;
         }
     }
@@ -61,12 +80,19 @@
             <div class="clearfix"></div>
             </nav>
             <div id="content">
-					<?php echo $body['header'] ?>
+					<h2><?php echo $body['header'] ?></h2>
+					<div class="subnav">	
+						<ul>
+							<?php echo $body['subNav'] ?>
+						</ul>			
+					</div>
             	<div class="row">
-			    		<div class="span3">
+			    		<div class="span6">
 							<?php echo $body['left'] ?>
 		      		</div>
-		      		<div class="span9">
+		      	</div>
+	      		<div class="row">
+		      		<div class="span6">
 							<?php echo $body['right'] ?>
 		      		</div>
 		      	</div>

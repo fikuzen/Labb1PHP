@@ -86,8 +86,9 @@ class LoginView{
 		// Returns a logout button.
 	    return array(
 	    		'header' => "
-	    		<h2>Christoffers Filuppladdning</h2>
+	    		Christoffers Filuppladdning
 	    		",
+	    		'subNav' => "",
 	    		'left' => "
 			    <form method='post' action='index.php'>
 			    	<input type='submit' name='$this->m_postLogout' class='btn btn-large' value='Logga Ut'>
@@ -96,7 +97,7 @@ class LoginView{
 			   'right' => "				
 		    	<div class=\"alert alert-success\">
 		    		<button type=\"button\" id=\"loginFormClose\" data-dismiss=\"alert\" class=\"close\">×</button>
-					<p>Du är inloggad.</p>
+					Du är inloggad.
 				</div>
 	    ");
 	}
@@ -115,8 +116,13 @@ class LoginView{
 		// Returns a login box.
 	    return array(
     				'header' => "
-	    			<h2>Christoffers Filuppladdning</h2>
+	    			Christoffers Filuppladdning
 	    			",
+	    			'subNav' => "
+						<li><a class='btn btn-small' href=" . NavigationView::getRegistrationLink() . ">Registrera</a></li>
+						<li><a class='btn btn-small' href=" . NavigationView::getForgotPassLink() . ">Glömt Lösenord</a></li>
+						<li><a class='btn btn-small' href=" . NavigationView::getDeleteUserLink() . ">Ta bort Användare</a></li>
+					",
 	    			'left' => "
 	    			<button id=\"loginShowButton\" class=\"btn btn-large\">Logga in</button>
 	    			<div id=\"loginForm\" class=\"alert alert-info\">
@@ -136,7 +142,8 @@ class LoginView{
 					", 
 					'right' => "
 					<div class=\"alert alert-info\">
-							<p>Du behöver logga in för att se mer information.</p>
+		    			<button type=\"button\" id=\"loginFormClose\" data-dismiss=\"alert\" class=\"close\">×</button>
+						Du behöver logga in för att se mer information.
 					</div>
 					");
 	}
@@ -146,6 +153,7 @@ class LoginView{
 	 * Takes a array of errors as param.  
 	 * 
 	 * @return $errorBox HTML CODE
+	 * @param $error an Error Message.
 	 */ 
 	public function doErrorList($error) {
 		if($error != ""){
@@ -153,7 +161,7 @@ class LoginView{
 			// Påbörja row, span4, alert alert-error.
 			$errorBox = "
 				<div class=\"row\">
-					<div class=\"span4\">
+					<div class=\"span3\">
 						<div class=\"alert alert-error\"> 
 							" . $error . "<br />
 						</div>

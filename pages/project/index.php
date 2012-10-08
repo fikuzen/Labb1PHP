@@ -1,26 +1,3 @@
-<?php
-  include('sendmail.php');
-  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-  
-    //Glöm inte att ändra de statiska sakerna till de du vill ha dem som.
-    
-    $email = array(); 
-    $email['receiver_name'] = "Christoffer Rydberg";
-    $email['receiver_email'] = "mongoj_92@hotmail.com";
-    $email['sender_name'] = isset($_POST['sender_name']) ? $_POST['sender_name'] : 'Statiskt avsändarnamn';
-    $email['sender_email'] = isset($_POST['sender_email']) ? $_POST['sender_email'] : 'Statiskt avsändaradress';
-    $email['subject'] = isset($_POST['subject']) ? $_POST['subject'] : 'Via Hemsidan';
-    $email['message'] = isset($_POST['message']) ? $_POST['message'] : 'Statisk body';
-    
-    //här kan du manipulera eventuell annan data. Ovan är bara ett förslag på hur du kan göra.
-    //dock så är det viktigt att arrayen är associativ med de namnen som finns där uppe.
-    
-    $sendmail = new SendMail($email);
-    
-  }
-  
-  else {?>
-
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -29,7 +6,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Kontaktuppgifter</title>
+        <title>Foodtime planerare</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
 
@@ -60,26 +37,20 @@
                 <div id="content">
                     <div class="row">
                         <div class="span8">
-                        	<h2>Christoffer Rydberg</h2>
-                            <hr />
-                            <div class="span3 contact-info">
-	                            <p><span class="icon-envelope margin-fix"></span>cr222cs@student.lnu.se</p>
-	                        	<p><span class="icon-user margin-fix"></span>Skype: aldiiz</p>
-	                            <p><span class="icon-volume-down margin-fix"></span>073-5075497</p>
-                            </div>
-                            <div class="span4">
-                            	<form class="emailform" action="<?php echo $_SERVER['PHP_SELF'];?>" method="post">
-                            		<label for="sender_name">Namn</label>
-                            		<input class="span4" type="text" id="sender_name" name="sender_name" placeholder="Namn..."></input>
-                            		<label for="sender_email">Email</label>
-                            		<input class="span4" type="text" id="sender_email" name="sender_email" placeholder="Email..."></input>
-                            		<label for="subject">Ämne</label>
-                            		<input class="span4" type="text" id="subject" name="subject" placeholder="Ämne..."></input>
-                            		<label for="message">Meddelande</label>
-                            		<textarea id="message" name="message" class="textarea-fix">Meddelande...</textarea>
-                            		<input type="submit" value="Skicka" class="btn btn-small btn-info"></input>
-                            	</form>
-                            </div>
+                        	<h2>Projekt Christoffer Rydberg - Foodtime</h2>
+                        	<?php include('module/subnav.php') ?>
+                        	<h3>Kortfattad beskrivning</h3>
+                        	<h4>Stora idéer</h4>
+                        	<p> 
+                        		Jag ska göra ett stort receptsystem där man som familj kan skapa maträtter, recept liknande system fast man inte behöver ha recept.
+                        		Det räcker alltså med ett namn på en måltid själva huvudsyftet med applikationen är att man ska kunna få en färdig veckomeny
+                        		från sina valda maträtter man har. För att på så sätt slippa hitta på måltider för varje vecka om man t.ex. veckoplanerar.                        		
+                     		</p>
+                     		<h4>Vad innehåller projektet då?</h4>
+                     		<p>
+                     			För projektet kommer jag att påbörja det som sagt, man ska kunna registrera sig samt editera sin profil.
+                     			Man ska också kunna lägga till måltider för sig själv/sin familj.
+                     		</p>
                         </div>
                         <div class="span4">
                             <?php include('../../latest.php') ?>
@@ -106,4 +77,3 @@
         </script>
     </body>
 </html>
-<?php }?>

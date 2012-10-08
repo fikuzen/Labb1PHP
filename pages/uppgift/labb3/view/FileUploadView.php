@@ -60,6 +60,7 @@ class FileUploadView{
 	 * Takes a array of errors as param.  
 	 * 
 	 * @return $errorBox HTML CODE
+	 * @param $error an Error Message.
 	 */ 
 	public function doErrorList($error) {
 		if($error != ""){

@@ -6,14 +6,13 @@
 	
 	class FileUploadController {
 				
-		public function doControll(){
+		public function doControll(Database $db){
 			
 			/**
 			 * Create instances of the Views, Controllers we're using.
 			 */
 			$fileUploadView = new FileUploadView();
-			$fileUploadModel= new FileUploadModel();
-			$loginModel = new LoginModel();
+			$fileUploadModel= new FileUploadModel($db);
 			
 			// The possible FileUpload error.
 			$fileUploadError = "";
@@ -21,7 +20,7 @@
 			$html = "";
 			
 			// If the user is logged in..
-			if($loginModel->IsLoggedIn()) {
+			if(LoginModel::IsLoggedIn()) {
 				
 				// Generate the login form
 				$html .= $fileUploadView->doFileUploadForm();

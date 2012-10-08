@@ -5,23 +5,32 @@ class FileUploadModel {
 	private $m_uploadDir = "../uploads/";
 	private $m_uploadBasename = "basename";
 		
-		
+	/**
+	 * Open the upload directory and return all filenames.
+	 * 
+	 * @return All the filenames in Uploads directory
+	 */
 	public function doOpenDir() {
 		$uploadedFiles = array();
-		// Open a known directory, and proceed to read its contents
+		
+		// Look if there's any folder
 		if (is_dir($this->m_uploadDir)) {
-		    if ($dh = opendir($this->m_uploadDir)) {
-		        while (($file = readdir($dh)) !== false) {
-		        	$fileArray = pathinfo($this->m_uploadDir . $file);
-					foreach ($fileArray as $file => $value) {
-						if($file == $this->m_uploadBasename ){
-							$uploadedFiles[] = $value;	
-						}
-					}
-		        }
-		        closedir($dh);
-		    }
+			
+			// Open the folder and store the directory in a variable
+			if ($dh = opendir($this->m_uploadDir)) {
+				
+				// Read all files in the folder.
+				while (($file = readdir($dh)) !== false) {
+					
+					// Store the filename in a array
+					$uploadedFiles[] = $file;
+				}
+				
+				// Close the opened directory
+				closedir($dh);
+			}
 		}
+		// Return the filenames
 		return $uploadedFiles;
 	}
 	
@@ -30,9 +39,10 @@ class FileUploadModel {
 		$uploaddir = '../uploads/';
 		$uploadfile = $uploaddir . basename($_FILES['userfile']['name']);
 		
-		if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) { 
-		    echo "File is valid, and was successfully uploaded.\n"; 
+		if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) {
+			return true;
 		}
+		throw new Exception("Error, The file couldn't be uploaded.", 3002);
 	}
 	
 	/**

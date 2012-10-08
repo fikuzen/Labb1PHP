@@ -4,19 +4,29 @@
 	require_once('../model/LoginModel.php');
 	
 	class LoginController {
-				
-		public function doControll(){
+		
+		public function doControll(Database $db){
 			/**
 			 * Create instances of the Views, Controllers we're using.
 			 */
+			 
 			$loginView = new LoginView();
-			$loginModel = new LoginModel();
+			$loginModel = new LoginModel($db);
 			
 			// The possible login error.
 			$loginError = "";
 			
-			// The HTML Array.
-			$html = array();
+			// Are you logged in?
+			if($loginModel->isLoggedIn()) {
+				
+				// Generate HTML Part to make it possible to logout
+				$html = $loginView->doLogoutPart();
+			}
+			// Are you not logged in?
+			else {
+				// Generate HTML Part to make it possible to login
+				$html = $loginView->doLoginPart();
+			}
 			
 			// Did the user try to logout
 			if($loginView->triedToLogout()){
@@ -55,23 +65,9 @@
 					}
 				}
 				catch (exception $e) {
-					
 					// Save the error.
-					$loginError .= $e->getMessage();
+					$html['left'] .= $loginView->doErrorList($e->getMessage());
 				}
-			}
-			
-			// Are you logged in?
-			if($loginModel->isLoggedIn()) {
-				
-				// Generate HTML Part to make it possible to logout
-				$html = $loginView->doLogoutPart();
-			}
-			// Are you not logged in?
-			else {
-				
-				// Generate HTML Part to make it possible to login
-				$html = $loginView->doLoginPart();
 			}
 			
 			// Return the HTML and the possible login error.

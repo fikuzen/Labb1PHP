@@ -19,10 +19,7 @@ class LoginModel {
 	 * @return BOOLEAN, True = logged in, False = not logged in
 	 */
 	public function isLoggedIn() {
-		if($_SESSION[$this->m_sessionLoggedIn]) {
-			return true;
-		}
-		return false;
+		return isset($_SESSION[$this->m_sessionLoggedIn]) ? true : false;
 	}
 	
 	/**
@@ -59,7 +56,7 @@ class LoginModel {
 	 * Loggin out a user
 	 */
 	public function doLogout() {
-		$_SESSION[$this->m_sessionLoggedIn] = false;
+		unset($_SESSION[$this->m_sessionLoggedIn]);
 	}
 	
 	/**
