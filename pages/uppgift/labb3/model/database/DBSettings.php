@@ -20,6 +20,6 @@ class DBSettings {
 		$this->setDB($db);
 		$this->setHost($host);
 		$this->setUser($user);
-		$this->setPass($pass);		
+		$this->setPass($pass);
 	}
 }

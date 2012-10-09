@@ -10,8 +10,12 @@
 			$stmt = $this->m_db->Prepare("SELECT * FROM user WHERE username = (?)");
 			$stmt->bind_param('s', $username);
 			$users = $this->m_db->ExecuteSelectQuery($stmt);
-			
-			return $users['username'] == null ? true : false;
+			if($users['username'] == null) {
+				return true;
+			}
+			else {
+				throw new Exception("Username exists");
+			}
 		}
 		
 		/**
@@ -81,20 +85,10 @@
 			}
 			
 			/**
-			 * Register a user with a invalid username, password
-			 */
-			try {
-				$sut->doRegisterUser("ds", "FlätadFisk22");
-			} catch(exception $e) {
-				// Test failed
-				$errors[] = 'doRegisterUser("ds", "FlätadFisk22") failed. On line: ' . __LINE__;
-			}
-			
-			/**
 			 * Try to register a user which is already registered.
 			 */
 			 try {
-			 	$sut->doRegisterUser("FlätadFisk" . $userCpimter, "FlätadFisk22");
+			 	$sut->doRegisterUser("FlätadFisk" . $userCounter, "FlätadFisk22");
 		 		$errors[] = 'doRegisterUser("FlätadFisk" . $userCounter, "FlätadFisk22") failed. On line: ' . __LINE__;
 			 } catch (exception $e) {
 			 	// Test success

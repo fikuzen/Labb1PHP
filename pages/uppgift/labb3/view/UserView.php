@@ -30,8 +30,21 @@
 			return isset($_POST[$this->m_deleteName]);
 		}
 		
-		private function validateUsername(){ return $this->m_validator->validateUsername($this->getUsername()); }
-		private function validatePassword(){ return $this->m_validator->validatePassword($this->getPassword()); }
+		public function setErrorMessages() {
+			foreach ($this->m_validator->getErrorMessages() as $errorMessage) {
+				$this->m_errorMessages[] = $errorMessage;
+			}
+		}
+		
+		public function addErrorMessage($error) {
+			$this->m_errorMessages[] = $error;
+		}
+		
+		public function getErrorMessages() {
+			var_dump($this->m_validator->getErrorMessages());
+			return $this->m_errorMessages;
+		}
+		
 		private function validatePasswordMatch() {
 			if ( $this->getPassword() != $this->getPasswordAgain() ) {
 				$this->m_errorMessages[] = "Passwords doesn't match";
@@ -40,22 +53,11 @@
 			return true;
 		}
 		
-		public function setErrorMessages() {
-			foreach ($this->m_validator->getErrorMessages() as $errorMessage) {
-				$this->m_errorMessages[] = $errorMessage;
-			}
-		}
-		
-		public function getErrorMessages() {
-			var_dump($this->m_validator->getErrorMessages());
-			return $this->m_errorMessages;
-		}
-		
 		public function validateNewRegisteredUser() {
 		
-			$this->validateUsername();
-			$this->validatePassword();
-			$this->validatePasswordMatch();
+			$this->m_validator->validateUsername($this->getUsername());
+			$this->m_validator->validatePassword($this->getPassword());
+			$this->m_validator->validatePasswordMatch($this->getPassword(), $this->getPasswordAgain());
 			
 			$errorMessage = $this->setErrorMessages();
 			

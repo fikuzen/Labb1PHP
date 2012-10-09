@@ -33,7 +33,7 @@
                 <div class="row">
                     <hr class="span12" />
                 </div>
-                <?php include('../../module/menu.php') ?>
+                <?php include('../../../module/menu.php') ?>
                 <div id="content">
                     <div class="row">
                     	<div class="span8">

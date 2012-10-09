@@ -26,10 +26,15 @@
 					$html = $userView->doRegisterPart();
 					if( $userView->triedToRegister() ) {
 						if( $userView->validateNewRegisteredUser() ) {
-							if ( $userModel->isRegistered($userView->getUsername()) ) {
-								if ( $userModel->doRegisterUser($userView->getUsername(), $userView->getPassword()) ) {
-									$html = $userView->doRegisterSuccessMessage();
+							try {
+								if ( $userModel->isRegistered($userView->getUsername()) ) {
+									if ( $userModel->doRegisterUser($userView->getUsername(), $userView->getPassword()) ) {
+										$html = $userView->doRegisterSuccessMessage();
+									}
 								}
+							} catch (exception $e) {
+								$userView->addErrorMessage($e->getMessage());
+								$html['right'] = $userView->doErrorList($userView->getErrorMessages());
 							}
 						}
 						else {

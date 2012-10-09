@@ -1,7 +1,7 @@
 <?php
 	require_once('model/LoginModel.php');
-	require_once('database/Database.php');
-	require_once('database/DBSettings.php');
+	require_once('model/database/Database.php');
+	require_once('model/database/DBSettings.php');
 	
 	//Här börjar vår php kod.
 	$bodyLeft = "<h2>Meny</h2>";

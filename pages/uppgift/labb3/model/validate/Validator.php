@@ -17,6 +17,7 @@
 	   private static $m_emailError = "emailError";
 	   private static $m_usernameError = "usernameError";
 	   private static $m_passwordError = "passwordError";
+	   private static $m_passwordAgainError = "passwordAgainError";
 	   private static $m_numberError = "numberError";
 	   private static $m_dateError = "dateError";
 	   private static $m_socialSecurityNumberError = "socSecNumbError";
@@ -169,7 +170,7 @@
 	   }
 	   
 	   /**
-	    * Validate an email
+	    * Validate an password
 	    * @param $password Password
 	    * @return bool
 	    */
@@ -179,9 +180,26 @@
 	       if(!preg_match(self::$m_passwordRegExp, $password))
 	       {
 	           self::$m_errorMessages[self::$m_passwordError ] = 
-	           "Password must contain letters.";
+	           "Password must contain atleast one Capital letter, one lowercase letter and one digit.";
 	           $passwordIsValid = false;
 	       }
+	       return $passwordIsValid;
+	   }
+		
+		/**
+	    * Validate so the repeated password matches the first
+	    * @param $password Password
+		 * @param $secondPassword repeated password
+	    * @return bool
+	    */
+	   public function validatePasswordMatch($password, $secondPassword)
+	   {
+	       $passwordIsValid = true;
+			 if ( $password != $secondPassword ) {
+			 	self::$m_errorMessages[self::$m_passwordAgainError ] = 
+	           "Passwords doesn't match";
+			 	$passwordIsValid = false;
+			 }
 	       return $passwordIsValid;
 	   }
 	   
